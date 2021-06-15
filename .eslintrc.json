@@ -27,6 +27,7 @@
       "react/react-in-jsx-scope": "off",
       "react/jsx-props-no-spreading": "off",
       "no-unused-vars": "warn",
+      "import/prefer-default-export": "off",
       "react/jsx-filename-extension": [
         1,
         {
@@ -34,6 +35,22 @@
             ".tsx"
           ]
         }
+      ],
+      "import/extensions": [
+        "error",
+        "ignorePackages",
+        {
+          "ts": "never",
+          "tsx": "never"
+        }
       ]
+    },
+    "settings": {
+      "react": {
+        "version": "detect"
+      },
+      "import/resolver": {
+        "typescript": {}
+      }
     }
 }
