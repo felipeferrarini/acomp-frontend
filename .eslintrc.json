@@ -28,6 +28,7 @@
       "react/jsx-props-no-spreading": "off",
       "no-unused-vars": "warn",
       "import/prefer-default-export": "off",
+      "react/prop-types": "off",
       "react/jsx-filename-extension": [
         1,
         {
