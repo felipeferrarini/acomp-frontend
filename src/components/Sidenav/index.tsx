@@ -1,25 +1,22 @@
 import { Heading, Stack, Box } from '@chakra-ui/react';
-import { FiArchive, FiHome, FiUsers } from 'react-icons/fi';
+import { FaHome, FaStethoscope, FaUserFriends } from 'react-icons/fa';
 import { NavLink } from './NavLink';
 
 export function Sidenav() {
   return (
-    <Box flexBasis="20%" paddingY={30} backgroundColor="white">
+    <Box paddingY={30} backgroundColor="white">
       <Heading textAlign="center" mb={12} color="blue.900" fontWeight="medium">
         ACOMP
       </Heading>
       <Stack spacing={3}>
-        <NavLink icon={FiHome} href="/dashboard">
+        <NavLink icon={FaHome} href="/dashboard">
           Início
         </NavLink>
-        <NavLink icon={FiHome} href="/atendiments">
-          Atendimentos
+        <NavLink icon={FaStethoscope} href="/followUp">
+          Acompanhamentos
         </NavLink>
-        <NavLink icon={FiUsers} href="/patients">
+        <NavLink icon={FaUserFriends} href="/patients">
           Pacientes
-        </NavLink>
-        <NavLink icon={FiArchive} href="/procediements">
-          Procedimentos
         </NavLink>
       </Stack>
     </Box>

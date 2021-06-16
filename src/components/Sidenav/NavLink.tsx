@@ -22,7 +22,7 @@ export function NavLink({ icon, children, href, ...rest }: Props) {
       <Link href={href} passHref {...rest}>
         <ChakraLink
           display="flex"
-          align="flex-start"
+          align="center"
           paddingX={30}
           paddingY={2}
           borderLeft="4px"
@@ -31,7 +31,9 @@ export function NavLink({ icon, children, href, ...rest }: Props) {
           bgGradient="linear(to-r, blue.50, transparent 50%)"
         >
           <Icon as={icon} fontSize={20} />
-          <Text ml={3}>{children}</Text>
+          <Text fontWeight="medium" ml={3}>
+            {children}
+          </Text>
         </ChakraLink>
       </Link>
     );
@@ -39,14 +41,16 @@ export function NavLink({ icon, children, href, ...rest }: Props) {
     <Link href={href} passHref {...rest}>
       <ChakraLink
         display="flex"
-        align="flex-start"
+        align="center"
         paddingX={30}
         paddingY={2}
         borderLeft="4px"
         borderColor="transparent"
       >
         <Icon as={icon} fontSize={20} />
-        <Text ml={3}>{children}</Text>
+        <Text fontWeight="medium" ml={3}>
+          {children}
+        </Text>
       </ChakraLink>
     </Link>
   );
