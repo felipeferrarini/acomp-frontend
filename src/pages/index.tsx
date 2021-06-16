@@ -9,7 +9,7 @@ import { useRouter } from 'next/dist/client/router';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import Link from 'next/link';
-import { FaUser, FaKey } from 'react-icons/fa';
+import { FiUser, FiLock } from 'react-icons/fi';
 import { Input } from '../components/signIn';
 import { signInFormSchema } from '../utils/validations/signInFormSchema';
 
@@ -31,7 +31,7 @@ export default function SignIn() {
 
     console.log(values);
 
-    router.push('/');
+    router.push('/dashboard');
   };
   return (
     <Flex
@@ -68,7 +68,7 @@ export default function SignIn() {
             type="email"
             label="E-mail"
             error={formState.errors.email}
-            leftIcon={<FaUser />}
+            leftIcon={<FiUser />}
             {...register('email')}
           />
           <Input
@@ -76,7 +76,7 @@ export default function SignIn() {
             type="password"
             label="Senha"
             error={formState.errors.password}
-            leftIcon={<FaKey />}
+            leftIcon={<FiLock />}
             isPassword
             {...register('password')}
           />

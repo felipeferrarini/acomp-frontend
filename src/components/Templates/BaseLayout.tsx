@@ -9,10 +9,10 @@ interface Props {
 
 export function BaseTemplate({ children }: Props) {
   return (
-    <Flex h="100vh" flexDir="row">
+    <Flex h="100vh" flexDir="row" overflowY="hidden">
       <Sidenav />
 
-      <Box background="gray.100" h="100%" flexGrow={1}>
+      <Box background="blue.50" h="100%" flexGrow={1}>
         <Header />
         <Box px={8}>{children}</Box>
       </Box>

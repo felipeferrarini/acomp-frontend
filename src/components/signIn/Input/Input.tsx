@@ -8,7 +8,7 @@ import {
   Input as ChakraInput,
   IconButton,
 } from '@chakra-ui/react';
-import { FaEye, FaEyeSlash } from 'react-icons/fa';
+import { FiEye, FiEyeOff } from 'react-icons/fi';
 import { InputProps } from './types';
 
 const InputBase: ForwardRefRenderFunction<HTMLInputElement, InputProps> = (
@@ -70,7 +70,7 @@ const InputBase: ForwardRefRenderFunction<HTMLInputElement, InputProps> = (
               onClick={() => setShowPassword(!showPassword)}
               aria-label="Mostrar senha"
               variant="ghost"
-              icon={showPassword ? <FaEye /> : <FaEyeSlash />}
+              icon={showPassword ? <FiEye /> : <FiEyeOff />}
             />
           )}
         </InputRightElement>

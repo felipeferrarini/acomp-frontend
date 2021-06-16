@@ -15,6 +15,8 @@ export function SearchBox() {
       position="relative"
       bg="blue.100"
       borderRadius="full"
+      shadow="xs"
+      alignItems="center"
     >
       <Input
         color="gray.600"
@@ -22,7 +24,7 @@ export function SearchBox() {
         px="4"
         mr="4"
         placeholder="Pesquisar pacientes, procedimentos..."
-        _placeholder={{ color: 'gray.200' }}
+        _placeholder={{ color: 'gray.500' }}
       />
       <Icon as={RiSearchLine} />
     </Flex>
