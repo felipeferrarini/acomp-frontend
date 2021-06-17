@@ -24,6 +24,21 @@ export const theme = extendTheme({
         bg: 'blue.50',
         color: 'gray.500',
       },
+      '*': {
+        '&::-webkit-scrollbar': {
+          width: '5px',
+        },
+
+        '&::-webkit-scrollbar-thumb': {
+          bg: 'blue.900',
+          borderRadius: '5px',
+        },
+
+        '&::-webkit-scrollbar-track': {
+          backgroundColor: 'blue.50',
+          borderRadius: 0,
+        },
+      },
     },
   },
 });
