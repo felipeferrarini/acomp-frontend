@@ -1,4 +1,5 @@
-import { Flex, Box, Text, Avatar } from '@chakra-ui/react';
+import { Flex, Box, Text, Avatar, Icon } from '@chakra-ui/react';
+import { FaChevronDown } from 'react-icons/fa';
 
 export function Profile() {
   return (
@@ -8,6 +9,8 @@ export function Profile() {
       </Box>
 
       <Avatar size="md" name="Lucas Flaquer" />
+
+      <Icon as={FaChevronDown} ml="2" />
     </Flex>
   );
 }

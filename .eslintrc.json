@@ -29,6 +29,7 @@
       "no-unused-vars": "warn",
       "import/prefer-default-export": "off",
       "react/prop-types": "off",
+      "react/require-default-props" : "off",
       "react/jsx-filename-extension": [
         1,
         {

@@ -1,60 +1,30 @@
-import { Flex, Icon, Button, Text } from '@chakra-ui/react';
+import { Stack } from '@chakra-ui/react';
 import { FaUserFriends } from 'react-icons/fa';
+import { useState } from 'react';
 import { BaseTemplate } from '../components/Templates/BaseLayout';
 import { PatientCard } from '../components/Patients';
+import { Pagination } from '../components/Pagination';
 
 export default function Patients() {
+  const [page, setPage] = useState(1);
   return (
-    <BaseTemplate>
-      <Flex flexDir="column">
-        <Flex flexDir="row" align="center" my="5">
-          <Text
-            color="blue.900"
-            fontWeight="medium"
-            fontSize="2xl"
-            display="flex"
-            alignItems="center"
-          >
-            <Icon as={FaUserFriends} mr="4" />
-            Pacientes
-          </Text>
+    <BaseTemplate
+      icon={FaUserFriends}
+      title="Pacientes"
+      buttonAction={() => {}}
+      buttonTitle="Novo Paciente"
+    >
+      <Stack h="" flexDir="column" spacing="4" mt="2">
+        {[...Array(100)].slice((page - 1) * 10, (page - 1) * 10 + 10).map(a => (
+          <PatientCard key={a} />
+        ))}
+      </Stack>
 
-          <Flex flexDir="row" w="100%" justify="flex-end">
-            <Button
-              type="button"
-              colorScheme="blue"
-              bg="blue.900"
-              size="md"
-              borderRadius={10}
-              maxWidth={230}
-              w="100%"
-            >
-              Novo Atendimento
-            </Button>
-            {/* <Button
-              type="button"
-              colorScheme="blue"
-              bg="white"
-              size="md"
-              borderRadius={10}
-              maxWidth={230}
-              w="100%"
-              color="blue.900"
-              borderColor="blue.900"
-              variant="outline"
-              ml="6"
-            >
-              Histórico
-            </Button> */}
-          </Flex>
-        </Flex>
-
-        <Flex h="100%" flexDir="column" overflowY="scroll">
-          {[...Array(6)].map(a => (
-            <PatientCard key={a} />
-          ))}
-        </Flex>
-      </Flex>
+      <Pagination
+        totalRegisters={100}
+        currentPage={page}
+        onPageChange={setPage}
+      />
     </BaseTemplate>
   );
 }
