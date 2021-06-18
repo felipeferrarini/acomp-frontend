@@ -12,8 +12,6 @@ import {
   Text,
   Flex,
   Center,
-  VStack,
-  Select,
 } from '@chakra-ui/react';
 import { ReactElement, ElementType } from 'react';
 
