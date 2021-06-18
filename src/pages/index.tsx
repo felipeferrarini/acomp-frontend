@@ -5,13 +5,14 @@ import {
   Link as ChakraLink,
   Text,
 } from '@chakra-ui/react';
-import { useRouter } from 'next/dist/client/router';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import Link from 'next/link';
 import { FiUser, FiLock } from 'react-icons/fi';
 import { Input } from '../components/signIn';
 import { signInFormSchema } from '../utils/validations/signInFormSchema';
+import { useAuthContext } from '../contexts/AuthContext';
+import { withSSRGuest } from '../hocs/withSSRGuest';
 
 type SignInFormData = {
   email: string;
@@ -20,18 +21,14 @@ type SignInFormData = {
 };
 
 export default function SignIn() {
-  const router = useRouter();
+  const { signIn } = useAuthContext();
 
   const { register, handleSubmit, formState } = useForm({
     resolver: yupResolver(signInFormSchema),
   });
 
   const handleSingIn: SubmitHandler<SignInFormData> = async values => {
-    await new Promise(resolve => setTimeout(resolve, 2000));
-
-    console.log(values);
-
-    router.push('/dashboard');
+    signIn(values);
   };
   return (
     <Flex
@@ -102,3 +99,9 @@ export default function SignIn() {
     </Flex>
   );
 }
+
+export const getServerSideProps = withSSRGuest(async () => {
+  return {
+    props: {},
+  };
+});
