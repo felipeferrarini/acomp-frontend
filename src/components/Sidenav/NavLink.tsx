@@ -23,7 +23,7 @@ export function NavLink({
 
   if (asPath === href) isActive = true;
   if (asPath.startsWith(String(href))) isActive = true;
-  // if (onClick) href = './';
+  if (asPath.includes('followup') && href === '#') isActive = true;
 
   if (isActive)
     return (

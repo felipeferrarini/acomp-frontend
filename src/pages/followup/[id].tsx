@@ -4,6 +4,7 @@ import { FiPlus } from 'react-icons/fi';
 import { Pacient } from '../../components/Pacient';
 import { FollowUpList } from '../../components/FollowUp';
 import { BaseTemplate } from '../../components/Templates/BaseLayout';
+import { withSSRAuth } from '../../hocs/withSSRAuth';
 
 export default function FollowUp() {
   return (
@@ -34,3 +35,9 @@ export default function FollowUp() {
     </BaseTemplate>
   );
 }
+
+export const getServerSideProps = withSSRAuth(async () => {
+  return {
+    props: {},
+  };
+});

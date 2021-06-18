@@ -1,4 +1,12 @@
-import { Flex, Avatar, Box, Heading, Link, Text, Icon } from '@chakra-ui/react';
+import {
+  Flex,
+  Avatar,
+  Box,
+  Heading,
+  Button,
+  Text,
+  Icon,
+} from '@chakra-ui/react';
 import { FiEdit } from 'react-icons/fi';
 
 export function Pacient() {
@@ -19,10 +27,10 @@ export function Pacient() {
           <Text>Rua x, nº 43, Bairro y, Cidade</Text>
         </Box>
       </Flex>
-      <Link href="/" marginRight={6} marginTop={2}>
+      <Button href="#" marginRight={6} marginTop={2}>
         <Icon as={FiEdit} marginRight={2} />
         Editar Paciente
-      </Link>
+      </Button>
     </Flex>
   );
 }

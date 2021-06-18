@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { BaseTemplate } from '../components/Templates/BaseLayout';
 import { PatientCard } from '../components/Patients';
 import { Pagination } from '../components/Pagination';
+import { withSSRAuth } from '../hocs/withSSRAuth';
 
 export default function Patients() {
   const [page, setPage] = useState(1);
@@ -28,3 +29,9 @@ export default function Patients() {
     </BaseTemplate>
   );
 }
+
+export const getServerSideProps = withSSRAuth(async () => {
+  return {
+    props: {},
+  };
+});
