@@ -17,12 +17,8 @@ interface AuthContextData {
 
 const AuthContext = createContext({} as AuthContextData);
 
-let authChannel: BroadcastChannel;
-
 export function signOut() {
   destroyCookie(undefined, '@user.token');
-
-  authChannel.postMessage('signOut');
 
   Router.push('/');
 }
@@ -31,20 +27,6 @@ const AuthProvider = ({ children }: WithChildren) => {
   const [user, setUser] = useState<UserProps>();
   const isAuthenticated = !!user;
   const toast = useToast();
-
-  useEffect(() => {
-    authChannel = new BroadcastChannel('auth');
-
-    authChannel.onmessage = message => {
-      switch (message.data) {
-        case 'signOut':
-          signOut();
-          break;
-        default:
-          break;
-      }
-    };
-  }, []);
 
   useEffect(() => {
     const { '@user.token': token } = parseCookies();

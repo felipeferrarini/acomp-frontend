@@ -5,8 +5,14 @@ import { BaseTemplate } from '../components/Templates/BaseLayout';
 import { PatientCard } from '../components/Patients';
 import { Pagination } from '../components/Pagination';
 import { withSSRAuth } from '../hocs/withSSRAuth';
+import { patientServices } from '../services/patient/patient.services';
+import { PatientProps } from '../services/patient/types';
 
-export default function Patients() {
+interface PatientsPageProps {
+  patients: PatientProps[];
+}
+
+export default function Patients({ patients }: PatientsPageProps) {
   const [page, setPage] = useState(1);
   return (
     <BaseTemplate
@@ -16,13 +22,13 @@ export default function Patients() {
       buttonTitle="Novo Paciente"
     >
       <Stack h="" flexDir="column" spacing="4" mt="2">
-        {[...Array(100)].slice((page - 1) * 10, (page - 1) * 10 + 10).map(a => (
-          <PatientCard key={a} />
+        {patients.slice((page - 1) * 10, (page - 1) * 10 + 10).map(patient => (
+          <PatientCard key={patient.id} patient={patient} />
         ))}
       </Stack>
 
       <Pagination
-        totalRegisters={100}
+        totalRegisters={patients.length}
         currentPage={page}
         onPageChange={setPage}
       />
@@ -31,7 +37,9 @@ export default function Patients() {
 }
 
 export const getServerSideProps = withSSRAuth(async () => {
+  const patients = await patientServices.getAll();
+
   return {
-    props: {},
+    props: { patients },
   };
 });

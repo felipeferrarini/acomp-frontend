@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "server": "json-server -d 750 -w -p 3002 ./server.js"
   },
   "dependencies": {
     "@chakra-ui/react": "^1.6.3",
@@ -15,6 +16,7 @@
     "@hookform/resolvers": "^2.5.2",
     "axios": "^0.21.1",
     "framer-motion": "4",
+    "json-server": "^0.16.3",
     "jwt-decode": "^3.1.2",
     "next": "11.0.0",
     "nextjs-progressbar": "^0.0.10",
