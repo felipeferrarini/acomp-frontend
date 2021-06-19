@@ -4,6 +4,7 @@ import {
   GetServerSidePropsResult,
 } from 'next';
 import { parseCookies } from 'nookies';
+import { routes } from '../utils/routes';
 
 export function withSSRGuest<P>(fn: GetServerSideProps<P>): GetServerSideProps {
   return async (
@@ -14,7 +15,7 @@ export function withSSRGuest<P>(fn: GetServerSideProps<P>): GetServerSideProps {
     if (cookies['@user.token']) {
       return {
         redirect: {
-          destination: '/dashboard',
+          destination: routes.home,
           permanent: false,
         },
       };

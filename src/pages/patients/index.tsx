@@ -1,18 +1,18 @@
 import { Stack, Center, Spinner } from '@chakra-ui/react';
 import { FaUserFriends } from 'react-icons/fa';
 import { useState } from 'react';
-import { BaseTemplate } from '../components/Templates/BaseLayout';
+import { BaseTemplate } from '../../components/Templates/BaseLayout';
 import {
   EmptyPatients,
   PatientCard,
   PatientForm,
-} from '../components/Patients';
-import { Pagination } from '../components/Pagination';
-import { withSSRAuth } from '../hocs/withSSRAuth';
+} from '../../components/Patients';
+import { Pagination } from '../../components/Pagination';
+import { withSSRAuth } from '../../hocs/withSSRAuth';
 import {
   PatientsProvider,
   usePatientsContext,
-} from '../contexts/PatientsContext';
+} from '../../contexts/PatientsContext';
 
 const PatientsComponent = () => {
   const [page, setPage] = useState(1);

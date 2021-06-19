@@ -11,7 +11,8 @@ export const patientServices = {
 
       return data;
     } catch (error) {
-      throw new Error('error on fetching patients list');
+      // throw new Error('error on fetching patients list');
+      return [];
     }
   },
   getOne: async (id: string): Promise<PatientProps> => {
