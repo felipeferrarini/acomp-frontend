@@ -6,7 +6,7 @@ export function setupApiClient(ctx = undefined) {
   const cookies = parseCookies(ctx);
 
   const api = axios.create({
-    baseURL: 'http://localhost:3333',
+    baseURL: process.env.BACK_END_URL || 'https://acomp-med.herokuapp.com',
     headers: {
       Authorization: `Bearer ${cookies['@user.token']}`,
     },
