@@ -11,7 +11,7 @@ import Link from 'next/link';
 import { FiUser, FiLock } from 'react-icons/fi';
 import { Input } from '../components/signIn';
 import { signInFormSchema } from '../utils/validations/signInFormSchema';
-import { useAuthContext } from '../contexts/AuthContext';
+import { useAuthContext } from '../contexts/AuthContex';
 import { withSSRGuest } from '../hocs/withSSRGuest';
 
 type SignInFormData = {
