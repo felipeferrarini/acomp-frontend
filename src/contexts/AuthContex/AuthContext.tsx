@@ -29,22 +29,22 @@ const AuthProvider = ({ children }: WithChildren) => {
   const isAuthenticated = !!user;
   const toast = useToast();
 
-  // useEffect(() => {
-  //   const { '@user.token': token } = parseCookies();
+  useEffect(() => {
+    const { '@user.token': token } = parseCookies();
 
-  //   if (token) {
-  //     api
-  //       .get('/profile/me')
-  //       .then(res =>
-  //         setUser({
-  //           name: res.data.name,
-  //           email: res.data.email,
-  //           id: res.data.id,
-  //         })
-  //       )
-  //       .catch(() => signOut());
-  //   }
-  // }, []);
+    if (token) {
+      api
+        .get('/profile/me')
+        .then(res =>
+          setUser({
+            name: res.data.name,
+            email: res.data.email,
+            id: res.data.id,
+          })
+        )
+        .catch(() => signOut());
+    }
+  }, []);
 
   async function signIn({ email, password }: SignCredentials) {
     try {
@@ -59,7 +59,7 @@ const AuthProvider = ({ children }: WithChildren) => {
 
       setCookie(undefined, '@user.token', token, {
         maxAge: exp,
-        path: routes.login,
+        path: routes.home,
       });
 
       setUser(userApi);
