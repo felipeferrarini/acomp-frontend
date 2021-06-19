@@ -34,6 +34,8 @@
       "no-console": "off",
       "no-return-await": "off",
       "camelcase": "off",
+      "no-nested-ternary": "off",
+      "no-useless-return": "off",
       "react/jsx-filename-extension": [
         1,
         {

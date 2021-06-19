@@ -3,9 +3,9 @@ import { setCookie, parseCookies, destroyCookie } from 'nookies';
 import Router from 'next/router';
 import jwtDecode from 'jwt-decode';
 import { useToast } from '@chakra-ui/react';
-import { api } from '../services/apiClient';
+import { api } from '../../services/apiClient';
 import { SignCredentials, UserProps } from './types';
-import { WithChildren } from '../@types/withChildren';
+import { WithChildren } from '../../@types/withChildren';
 
 interface AuthContextData {
   // eslint-disable-next-line no-unused-vars
@@ -17,7 +17,7 @@ interface AuthContextData {
 
 const AuthContext = createContext({} as AuthContextData);
 
-export function signOut() {
+function signOut() {
   destroyCookie(undefined, '@user.token');
 
   Router.push('/');
@@ -100,4 +100,4 @@ const useAuthContext = () => {
   return context;
 };
 
-export { useAuthContext, AuthProvider };
+export { useAuthContext, AuthProvider, signOut };
