@@ -43,12 +43,10 @@ export default function FollowUp({ patient }: FollowUpProps) {
   );
 }
 
-// export const getServerSideProps = withSSRAuth(async ctx => {
-//   const { id } = ctx.params;
-
-//   const patient = await patientServices.getOne(id as string);
-
-//   return {
-//     props: { patient },
-//   };
-// });
+export const getServerSideProps = withSSRAuth(async ctx => {
+  const { id } = ctx.params;
+  const patient = await patientServices.getOne(id as string);
+  return {
+    props: { patient },
+  };
+});

@@ -2,6 +2,7 @@ import { Box, Image, Flex, Text, Stack } from '@chakra-ui/react';
 import Link from 'next/link';
 import { PatientProps } from '../../services/patient/types';
 import { stringParsers } from '../../utils/parse/string';
+import { routes } from '../../utils/routes';
 
 interface PatientCardProps {
   patient: PatientProps;
@@ -11,7 +12,7 @@ const PatientCard = ({ patient }: PatientCardProps) => {
   const { name, updated_at, id } = patient;
 
   return (
-    <Link href={`/followup/${id}`}>
+    <Link href={`${routes.patients}/${id}`}>
       <Box
         display="flex"
         flexDirection="row"
