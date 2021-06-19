@@ -55,18 +55,20 @@ const PatientForm = () => {
                 <HStack>
                   <Box w="64">
                     <VStack>
-                      <Avatar h="24" w="24" borderRadius={10} src="" />
+                      <Avatar h="28" w="32" borderRadius={10} src="" mb="2" />
                       <Button
                         colorScheme="blue"
                         variant="outline"
-                        outlineColor="blue.700"
+                        borderColor="blue.700"
+                        color="blue.700"
+                        w="32"
                       >
                         Inserir foto
                       </Button>
                     </VStack>
                   </Box>
                   <FormControl>
-                    <FormLabel>First name</FormLabel>
+                    <FormLabel>Nome</FormLabel>
                     <Input placeholder="First name" />
                   </FormControl>
                 </HStack>
@@ -79,10 +81,13 @@ const PatientForm = () => {
                   colorScheme="blue"
                   mr={3}
                   bg="blue.900"
+                  w="32"
                 >
-                  Criar
+                  Salvar
                 </Button>
-                <Button onClick={onClose}>Cancel</Button>
+                <Button w="32" onClick={onClose}>
+                  Cancel
+                </Button>
               </ModalFooter>
             </Form>
           )}
