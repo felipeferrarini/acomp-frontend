@@ -6,6 +6,7 @@ import { useToast } from '@chakra-ui/react';
 import { api } from '../../services/apiClient';
 import { SignCredentials, UserProps } from './types';
 import { WithChildren } from '../../@types/withChildren';
+import { routes } from '../../utils/routes';
 
 interface AuthContextData {
   // eslint-disable-next-line no-unused-vars
@@ -20,7 +21,7 @@ const AuthContext = createContext({} as AuthContextData);
 function signOut() {
   destroyCookie(undefined, '@user.token');
 
-  Router.push('/');
+  Router.push(routes.login);
 }
 
 const AuthProvider = ({ children }: WithChildren) => {
@@ -28,22 +29,22 @@ const AuthProvider = ({ children }: WithChildren) => {
   const isAuthenticated = !!user;
   const toast = useToast();
 
-  useEffect(() => {
-    const { '@user.token': token } = parseCookies();
+  // useEffect(() => {
+  //   const { '@user.token': token } = parseCookies();
 
-    if (token) {
-      api
-        .get('/profile/me')
-        .then(res =>
-          setUser({
-            name: res.data.name,
-            email: res.data.email,
-            id: res.data.id,
-          })
-        )
-        .catch(() => signOut());
-    }
-  }, []);
+  //   if (token) {
+  //     api
+  //       .get('/profile/me')
+  //       .then(res =>
+  //         setUser({
+  //           name: res.data.name,
+  //           email: res.data.email,
+  //           id: res.data.id,
+  //         })
+  //       )
+  //       .catch(() => signOut());
+  //   }
+  // }, []);
 
   async function signIn({ email, password }: SignCredentials) {
     try {
@@ -58,14 +59,14 @@ const AuthProvider = ({ children }: WithChildren) => {
 
       setCookie(undefined, '@user.token', token, {
         maxAge: exp,
-        path: '/',
+        path: routes.login,
       });
 
       setUser(userApi);
 
       api.defaults.headers.Authorization = `Bearer ${token}`;
 
-      Router.push('/dashboard');
+      Router.push(routes.home);
     } catch (error) {
       toast({
         title: 'Erro no login',
