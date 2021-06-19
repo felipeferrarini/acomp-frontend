@@ -24,6 +24,7 @@ export function FollowUpList() {
         mb={8}
         borderRadius={10}
         overflow="hidden"
+        color="gray.900"
       >
         <GridItem
           background="blue.700"
@@ -55,7 +56,7 @@ export function FollowUpList() {
             </Box>
           </Collapse>
           <Button size="sm" onClick={handleToggle} mt="1rem">
-            Show {show ? 'Less' : 'More'}
+            Mostrar {show ? 'menos' : 'mais'}
           </Button>
         </GridItem>
       </Grid>

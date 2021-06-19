@@ -8,23 +8,30 @@ import {
   Icon,
 } from '@chakra-ui/react';
 import { FiEdit } from 'react-icons/fi';
+import { PatientProps } from '../../services/patient/types';
 
-export function Pacient() {
+interface PatientComponentProps {
+  patient: PatientProps;
+}
+
+export function Patient({ patient }: PatientComponentProps) {
+  const { name, address } = patient;
+
   return (
     <Flex justifyContent="space-between" mb={5}>
       <Flex flexBasis="50%">
         <Avatar
           size="2xl"
           borderRadius="0"
-          name="Elizangela Gonçalvez"
+          name={name}
           src="https://avatars.githubusercontent.com/u/22601978?v=4"
         />
         <Box marginLeft={2}>
           <Heading marginBottom={5} marginTop={2}>
-            Elizangela Gonçalvez
+            {name}
           </Heading>
           <Text>54 anos</Text>
-          <Text>Rua x, nº 43, Bairro y, Cidade</Text>
+          <Text>{address}</Text>
         </Box>
       </Flex>
       <Button href="#" marginRight={6} marginTop={2}>

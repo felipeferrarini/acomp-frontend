@@ -1,32 +1,39 @@
 import { Box, Button, Icon, Text } from '@chakra-ui/react';
-
-import { FiPlus } from 'react-icons/fi';
-import { Pacient } from '../../components/Pacient';
+import { FaPlus } from 'react-icons/fa';
+import { Patient } from '../../components/Patient';
 import { FollowUpList } from '../../components/FollowUp';
 import { BaseTemplate } from '../../components/Templates/BaseLayout';
 import { withSSRAuth } from '../../hocs/withSSRAuth';
+import { patientServices } from '../../services/patient/patient.services';
+import { PatientProps } from '../../services/patient/types';
 
-export default function FollowUp() {
+interface FollowUpProps {
+  patient: PatientProps;
+}
+
+export default function FollowUp({ patient }: FollowUpProps) {
   return (
     <BaseTemplate>
       <Box background="white" borderRadius={10} overflow="hidden">
-        <Pacient />
+        <Patient patient={patient} />
         <Button
           maxW="60%"
           w="100%"
           margin="0 auto"
           align="center"
           background="blue.700"
-          marginBottom={4}
+          colorScheme="blue"
+          marginBottom={6}
           height={20}
           justifyContent="center"
           borderRadius={10}
           color="white"
           fontWeight="bold"
           display="flex"
+          shadow="md"
         >
-          <Icon as={FiPlus} fontSize="2xl" />
-          <Text fontSize="lg" marginLeft={2}>
+          <Icon as={FaPlus} fontSize="xl" />
+          <Text fontSize="xl" marginLeft={2}>
             Novo Atendimento
           </Text>
         </Button>
@@ -36,8 +43,12 @@ export default function FollowUp() {
   );
 }
 
-export const getServerSideProps = withSSRAuth(async () => {
+export const getServerSideProps = withSSRAuth(async ctx => {
+  const { id } = ctx.params;
+
+  const patient = await patientServices.getOne(id as string);
+
   return {
-    props: {},
+    props: { patient },
   };
 });
