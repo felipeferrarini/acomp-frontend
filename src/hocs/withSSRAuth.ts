@@ -4,6 +4,7 @@ import {
   GetServerSidePropsResult,
 } from 'next';
 import { destroyCookie, parseCookies } from 'nookies';
+import { routes } from '../utils/routes';
 
 export function withSSRAuth<P>(fn: GetServerSideProps<P>): GetServerSideProps {
   return async (
@@ -15,7 +16,7 @@ export function withSSRAuth<P>(fn: GetServerSideProps<P>): GetServerSideProps {
     if (!token) {
       return {
         redirect: {
-          destination: '/',
+          destination: routes.login,
           permanent: false,
         },
       };
@@ -28,7 +29,7 @@ export function withSSRAuth<P>(fn: GetServerSideProps<P>): GetServerSideProps {
 
       return {
         redirect: {
-          destination: '/',
+          destination: routes.login,
           permanent: false,
         },
       };
