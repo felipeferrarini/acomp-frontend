@@ -11,15 +11,14 @@ import {
   Icon,
 } from '@chakra-ui/react';
 import { FaChevronDown } from 'react-icons/fa';
-import Router from 'next/router';
+import Link from 'next/link';
 import { useAuthContext } from '../../contexts/AuthContex';
 import { routes } from '../../utils/routes';
 
 export function Profile() {
   const { user, signOut } = useAuthContext();
-  function handleRedirect() {
-    Router.push(routes.profile);
-  }
+  console.log(user);
+
   return (
     <Flex align="center" position="relative" mr="20px">
       <Box mr="4" textAlign="right">
@@ -28,7 +27,6 @@ export function Profile() {
 
       <Avatar size="md" name={user?.name} />
 
-      {/* <Icon as={FaChevronDown}  /> */}
       <Menu>
         <MenuButton
           ml="2"
@@ -39,7 +37,9 @@ export function Profile() {
           background="transparent"
         />
         <MenuList>
-          <MenuItem onClick={() => handleRedirect()}>Meus Dados</MenuItem>
+          <Link href={routes.profile}>
+            <MenuItem> Meus Dados</MenuItem>
+          </Link>
           <MenuItem onClick={() => signOut()}>Sair</MenuItem>
         </MenuList>
       </Menu>
