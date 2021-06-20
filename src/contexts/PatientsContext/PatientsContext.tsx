@@ -168,6 +168,14 @@ const PatientsProvider = ({ children }: WithChildren) => {
   };
 
   const createFollowup = async (form: FollowUpPayload) => {
+    console.log(form);
+
+    const newForm: FollowUpPayload = {
+      ...form,
+      patient_id: patientForm.id,
+    };
+
+    console.log(newForm);
     setLoading(true);
     try {
       const data = await patientServices.newMedicalCare(form);

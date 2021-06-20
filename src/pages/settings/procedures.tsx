@@ -1,5 +1,5 @@
 import { FiFile } from 'react-icons/fi';
-import { Box, Center, Text } from '@chakra-ui/react';
+import { VStack, Center, Text } from '@chakra-ui/react';
 import { BaseTemplate } from '../../components/Templates/BaseLayout';
 import { withSSRAuth } from '../../hocs/withSSRAuth';
 import {
@@ -19,7 +19,13 @@ const ProceduresPage = () => {
       buttonAction={() => toogleProcedureModal()}
       buttonTitle="Novo Procedimento"
     >
-      <Box background="white" borderRadius={10} overflow="hidden">
+      <VStack
+        background="white"
+        borderRadius={10}
+        overflow="hidden"
+        spacing="2"
+        p="8"
+      >
         {loading ? (
           <Loading />
         ) : procedures.length > 0 ? (
@@ -34,7 +40,7 @@ const ProceduresPage = () => {
             </Text>
           </Center>
         )}
-      </Box>
+      </VStack>
       <ProcedureModal />
     </BaseTemplate>
   );

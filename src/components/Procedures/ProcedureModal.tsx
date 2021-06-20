@@ -15,7 +15,7 @@ import { Formik, Form } from 'formik';
 import { FaFileAlt } from 'react-icons/fa';
 import { procedureSchema } from '../../utils/validations';
 import { Loading } from '../Loading';
-import { InputForm } from '../InputForm';
+import { InputForm } from '../Form';
 import { useProcedureContext } from '../../contexts/Procedures';
 
 const ProcedureModal = () => {

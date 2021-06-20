@@ -1,54 +1,50 @@
 import { useToast } from '@chakra-ui/react';
 import { useContext, useEffect, useState, createContext } from 'react';
-
 import { WithChildren } from '../../@types/withChildren';
-import { procedureService } from '../../services/procedures/procedures.services';
-import {
-  ProcedurePayload,
-  ProcedureProps,
-} from '../../services/procedures/types';
+import { DoctorPayload, DoctorProps } from '../../services/doctors/types';
+import { doctorServices } from '../../services/doctors/doctors.services';
 
 export interface ProceduresContextData {
-  procedures: ProcedureProps[];
+  doctors: DoctorProps[];
   loading: boolean;
-  form: ProcedurePayload;
+  form: DoctorPayload;
   modalIsOpen: boolean;
-  loadingProcedure: boolean;
-  fetchProcedures: (search?: string) => Promise<void>;
+  loadingDoctor: boolean;
+  fetchDoctors: (search?: string) => Promise<void>;
   toogleProcedureModal: (id?: string) => void;
-  createProcedure: (payload: ProcedurePayload) => Promise<void>;
+  createProcedure: (payload: DoctorPayload) => Promise<void>;
 }
 
-const ProceduresContext = createContext({
-  procedures: [],
-} as ProceduresContextData);
+const DoctorsContext = createContext({} as ProceduresContextData);
 
-const ProceduresProvider = ({ children }: WithChildren) => {
+const DoctorsProvider = ({ children }: WithChildren) => {
   const toast = useToast();
-  const defaultProcedureForm = {
+  const defaultDoctorForm = {
     id: '',
-    type: '',
-    description: '',
+    name: '',
+    crm: '',
+    phone: '',
+    user_id: '',
   };
-  const [procedures, setProcedures] = useState<ProcedureProps[]>([]);
+  const [doctors, setDoctors] = useState<DoctorProps[]>([]);
   const [loading, setLoading] = useState(false);
-  const [form, setForm] = useState<ProcedurePayload>(defaultProcedureForm);
+  const [form, setForm] = useState<DoctorPayload>(defaultDoctorForm);
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [isEditMode, setIsEditMode] = useState(false);
-  const [loadingProcedure, setLoadingProcedure] = useState(false);
+  const [loadingDoctor, setLoadingDoctor] = useState(false);
 
-  const fetchProcedures = async (search = '') => {
+  const fetchDoctors = async (search = '') => {
     setLoading(true);
     try {
-      const data = await procedureService.getAll(search);
+      const data = await doctorServices.getAll(search);
 
       if (data) {
-        setProcedures(data);
+        setDoctors(data);
       }
     } catch (error) {
       toast({
         title: 'Erro na requisição',
-        description: 'Não foi possivel listar os Procedimentos!',
+        description: 'Não foi possivel listar Médicos!',
         status: 'error',
         duration: 9000,
         isClosable: true,
@@ -59,15 +55,17 @@ const ProceduresProvider = ({ children }: WithChildren) => {
     }
   };
 
-  const getProcedureInfo = async (id: string) => {
-    setLoadingProcedure(true);
+  const getDoctorInfo = async (id: string) => {
+    setLoadingDoctor(true);
     try {
-      const data = await procedureService.getOne(id);
+      const data = await doctorServices.getOne(id);
       if (data)
         setForm({
           id: data.id,
-          type: data.type,
-          description: data.description || '',
+          crm: data.crm,
+          name: data.name,
+          phone: data.phone,
+          user_id: data.user_id,
         });
     } catch (err) {
       toast({
@@ -80,18 +78,18 @@ const ProceduresProvider = ({ children }: WithChildren) => {
       });
       console.log(err);
     } finally {
-      setLoadingProcedure(false);
+      setLoadingDoctor(false);
     }
   };
 
-  const createProcedure = async (payload: ProcedurePayload) => {
+  const createProcedure = async (payload: DoctorPayload) => {
     setLoading(true);
     try {
       const data = isEditMode
-        ? await procedureService.update(payload)
-        : await procedureService.create(payload);
+        ? await doctorServices.update(payload)
+        : await doctorServices.create(payload);
       if (data) {
-        fetchProcedures();
+        fetchDoctors();
         setModalIsOpen(false);
         toast({
           title: 'Sucesso!',
@@ -122,7 +120,7 @@ const ProceduresProvider = ({ children }: WithChildren) => {
     if (id) {
       setModalIsOpen(true);
       setIsEditMode(true);
-      getProcedureInfo(id);
+      getDoctorInfo(id);
       return;
     }
 
@@ -130,31 +128,31 @@ const ProceduresProvider = ({ children }: WithChildren) => {
   };
 
   useEffect(() => {
-    fetchProcedures();
+    fetchDoctors();
   }, []);
 
   return (
-    <ProceduresContext.Provider
+    <DoctorsContext.Provider
       value={{
-        fetchProcedures,
+        fetchDoctors,
         toogleProcedureModal,
         createProcedure,
-        procedures,
+        doctors,
         loading,
         form,
         modalIsOpen,
-        loadingProcedure,
+        loadingDoctor,
       }}
     >
       {children}
-    </ProceduresContext.Provider>
+    </DoctorsContext.Provider>
   );
 };
 
-const useProcedureContext = () => {
-  const context = useContext(ProceduresContext);
+const useDoctorsContext = () => {
+  const context = useContext(DoctorsContext);
   if (!context) throw new Error('erro context no provided');
   return context;
 };
 
-export { useProcedureContext, ProceduresProvider };
+export { useDoctorsContext, DoctorsProvider };

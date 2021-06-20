@@ -15,7 +15,7 @@ import { usePatientsContext } from '../../../contexts/PatientsContext';
 import { patientFormSchema } from '../../../utils/validations/patientForm';
 import { Loading } from '../../Loading';
 import { InputAvatar } from './components/InputAvatar';
-import { InputForm } from '../../InputForm';
+import { InputForm } from '../../Form';
 import { ModalActions } from './components/ModalActions';
 
 const PatientForm = () => {

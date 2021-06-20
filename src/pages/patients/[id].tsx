@@ -11,6 +11,8 @@ import {
 } from '../../contexts/PatientsContext';
 import { PatientForm, FollowUpForm } from '../../components/Patients';
 import { Loading } from '../../components/Loading';
+import { ProceduresProvider } from '../../contexts/Procedures';
+import { DoctorsProvider } from '../../contexts/DoctorsContext';
 
 interface FollowUpProps {
   id: string;
@@ -54,11 +56,11 @@ const FollowUpComponent = ({ id }: FollowUpProps) => {
               Novo Atendimento
             </Text>
           </Button>
+
           <FollowUpList />
         </Flex>
       )}
       <PatientForm />
-      <FollowUpForm />
     </BaseTemplate>
   );
 };
@@ -67,6 +69,11 @@ export default function FollowUp({ id }: FollowUpProps) {
   return (
     <PatientsProvider>
       <FollowUpComponent id={id} />
+      <ProceduresProvider>
+        <DoctorsProvider>
+          <FollowUpForm />
+        </DoctorsProvider>
+      </ProceduresProvider>
     </PatientsProvider>
   );
 }
