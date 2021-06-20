@@ -1,17 +1,10 @@
 import {
-  Button,
-  Box,
-  Avatar,
-  FormControl,
-  FormLabel,
-  Input,
   Icon,
   HStack,
   Modal,
   ModalBody,
   ModalCloseButton,
   ModalContent,
-  ModalFooter,
   ModalHeader,
   ModalOverlay,
   VStack,
@@ -19,10 +12,20 @@ import {
 import { Formik, Form } from 'formik';
 import { FaUser } from 'react-icons/fa';
 import { usePatientsContext } from '../../../contexts/PatientsContext';
+import { patientFormSchema } from '../../../utils/validations/patientForm';
+import { Loading } from '../../Loading';
+import { InputAvatar } from './components/InputAvatar';
+import { InputForm } from './components/InputForm';
+import { ModalActions } from './components/ModalActions';
 
 const PatientForm = () => {
-  const { patientModalIsOpen, patientForm, tooglePatientModal } =
-    usePatientsContext();
+  const {
+    patientModalIsOpen,
+    patientForm,
+    loadingPatient,
+    tooglePatientModal,
+    createPatient,
+  } = usePatientsContext();
 
   const onClose = () => {
     tooglePatientModal();
@@ -31,7 +34,8 @@ const PatientForm = () => {
   return (
     <Modal size="4xl" isOpen={patientModalIsOpen} onClose={onClose}>
       <ModalOverlay />
-      <ModalContent>
+
+      <ModalContent p="8">
         <ModalHeader
           fontSize="3xl"
           display="flex"
@@ -42,56 +46,40 @@ const PatientForm = () => {
           <Icon as={FaUser} mr="2" />
           Novo paciente
         </ModalHeader>
-        <ModalCloseButton />
-        <Formik
-          initialValues={patientForm}
-          onSubmit={values => {
-            console.log(values);
-          }}
-        >
-          {({ isSubmitting }) => (
-            <Form>
-              <ModalBody pb={6}>
-                <HStack>
-                  <Box w="64">
-                    <VStack>
-                      <Avatar h="28" w="32" borderRadius={10} src="" mb="2" />
-                      <Button
-                        colorScheme="blue"
-                        variant="outline"
-                        borderColor="blue.700"
-                        color="blue.700"
-                        w="32"
-                      >
-                        Inserir foto
-                      </Button>
-                    </VStack>
-                  </Box>
-                  <FormControl>
-                    <FormLabel>Nome</FormLabel>
-                    <Input placeholder="First name" />
-                  </FormControl>
-                </HStack>
-              </ModalBody>
+        <ModalCloseButton colorScheme="blue" color="blue.900" />
 
-              <ModalFooter>
-                <Button
-                  type="submit"
-                  isLoading={isSubmitting}
-                  colorScheme="blue"
-                  mr={3}
-                  bg="blue.900"
-                  w="32"
-                >
-                  Salvar
-                </Button>
-                <Button w="32" onClick={onClose}>
-                  Cancel
-                </Button>
-              </ModalFooter>
-            </Form>
-          )}
-        </Formik>
+        {loadingPatient ? (
+          <Loading />
+        ) : (
+          <Formik
+            initialValues={patientForm}
+            onSubmit={createPatient}
+            validationSchema={patientFormSchema}
+          >
+            {({ isSubmitting }) => (
+              <Form>
+                <ModalBody pb={6}>
+                  <HStack>
+                    <InputAvatar />
+                    <VStack w="80%">
+                      <InputForm name="name" label="Nome" />
+                      <InputForm
+                        name="birth_date"
+                        label="Nascimento"
+                        type="date"
+                      />
+                      <InputForm name="cpf" label="CPF" type="number" />
+                      <InputForm name="address" label="Endereço" />
+                      <InputForm name="phone" label="Telefone" type="number" />
+                    </VStack>
+                  </HStack>
+                </ModalBody>
+
+                <ModalActions isSubmitting={isSubmitting} onClose={onClose} />
+              </Form>
+            )}
+          </Formik>
+        )}
       </ModalContent>
     </Modal>
   );

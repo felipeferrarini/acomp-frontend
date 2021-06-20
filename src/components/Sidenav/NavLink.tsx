@@ -2,6 +2,7 @@ import { Link as ChakraLink, Icon, Text } from '@chakra-ui/react';
 import Link, { LinkProps } from 'next/link';
 import { useRouter } from 'next/router';
 import { MouseEventHandler, ElementType } from 'react';
+import { routes } from '../../utils/routes';
 
 interface Props extends LinkProps {
   icon: ElementType;
@@ -22,8 +23,7 @@ export function NavLink({
   let isActive = false;
 
   if (asPath === href) isActive = true;
-  if (asPath.startsWith(String(href))) isActive = true;
-  if (asPath.includes('followup') && href === '#') isActive = true;
+  if (href === '#' && asPath.includes(routes.patientsId)) isActive = true;
 
   if (isActive)
     return (
