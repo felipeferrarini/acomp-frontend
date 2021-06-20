@@ -53,8 +53,9 @@ const AuthProvider = ({ children }: WithChildren) => {
         password,
       });
 
-      const { token, userApi } = response.data;
+      const { token, user: userApi } = response.data;
 
+      setUser(userApi);
       const { exp } = jwtDecode<{ exp: number }>(token);
 
       setCookie(undefined, '@user.token', token, {
@@ -62,15 +63,13 @@ const AuthProvider = ({ children }: WithChildren) => {
         path: routes.home,
       });
 
-      setUser(userApi);
-
       api.defaults.headers.Authorization = `Bearer ${token}`;
 
       Router.push(routes.home);
     } catch (error) {
       toast({
         title: 'Erro no login',
-        description: 'Opa! email ou senha incorretos',
+        description: 'Ops! email ou senha incorretos',
         status: 'error',
         duration: 9000,
         isClosable: true,

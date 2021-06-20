@@ -1,8 +1,9 @@
 import { Flex } from '@chakra-ui/react';
+import { memo } from 'react';
 import { SearchBox } from './SearchBox';
 import { Profile } from './Profile';
 
-export function Header() {
+const HeaderComponent = () => {
   return (
     <Flex
       as="header"
@@ -19,4 +20,8 @@ export function Header() {
       <Profile />
     </Flex>
   );
-}
+};
+
+const Header = memo(HeaderComponent);
+
+export { Header };

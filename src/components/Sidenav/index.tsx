@@ -1,15 +1,21 @@
-import { Heading, Stack, Box, useDisclosure } from '@chakra-ui/react';
-import { FaHome, FaStethoscope, FaUserFriends } from 'react-icons/fa';
+import { Heading, Stack, Box, useDisclosure, Flex } from '@chakra-ui/react';
+import { FaHome, FaStethoscope, FaUserFriends, FaCogs } from 'react-icons/fa';
 import Link from 'next/link';
+import { memo } from 'react';
 import { ChoosePatientToFollowUp } from './ChoosePatientToFollowUp/ChoosePatientToFollowUp';
 import { NavLink } from './NavLink';
 import { routes } from '../../utils/routes';
 
-export function Sidenav() {
+const SidenavComponent = () => {
   const disclosure = useDisclosure();
   return (
     <>
-      <Box paddingY={30} backgroundColor="white">
+      <Flex
+        paddingY={30}
+        backgroundColor="white"
+        pos="relative"
+        direction="column"
+      >
         <Link href={routes.home}>
           <Heading
             textAlign="center"
@@ -35,8 +41,17 @@ export function Sidenav() {
             Pacientes
           </NavLink>
         </Stack>
-      </Box>
+        <Box marginTop="auto">
+          <NavLink icon={FaCogs} href={routes.settings}>
+            Configurações
+          </NavLink>
+        </Box>
+      </Flex>
       <ChoosePatientToFollowUp useDisclosure={disclosure} />
     </>
   );
-}
+};
+
+const Sidenav = memo(SidenavComponent);
+
+export { Sidenav };

@@ -1,5 +1,6 @@
 import { Box, Image, Flex, Text, Stack } from '@chakra-ui/react';
 import Link from 'next/link';
+import { memo } from 'react';
 import { PatientProps } from '../../services/patient/types';
 import { stringParsers } from '../../utils/parse/string';
 import { routes } from '../../utils/routes';
@@ -8,7 +9,7 @@ interface PatientCardProps {
   patient: PatientProps;
 }
 
-const PatientCard = ({ patient }: PatientCardProps) => {
+const PatientCardComponent = ({ patient }: PatientCardProps) => {
   const { name, updated_at, id } = patient;
 
   return (
@@ -58,5 +59,7 @@ const PatientCard = ({ patient }: PatientCardProps) => {
     </Link>
   );
 };
+
+const PatientCard = memo(PatientCardComponent);
 
 export { PatientCard };
