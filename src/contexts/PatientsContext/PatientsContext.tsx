@@ -4,11 +4,13 @@ import { WithChildren } from '../../@types/withChildren';
 import { PatientPayload, PatientProps } from '../../services/patient/types';
 import { patientServices } from '../../services/patient/patient.services';
 import { PatientsContextData } from './types';
+import { stringParsers } from '../../utils/parse/string';
 
 const PatientsContext = createContext({} as PatientsContextData);
 
 const PatientsProvider = ({ children }: WithChildren) => {
   const defaultPatientForm = {
+    id: '',
     name: '',
     cpf: '',
     phone: '',
@@ -22,6 +24,7 @@ const PatientsProvider = ({ children }: WithChildren) => {
   const [patientModalIsOpen, setPatientModalIsOpen] = useState(false);
   const [patientForm, setPatientForm] =
     useState<PatientPayload>(defaultPatientForm);
+  const [isEditMode, setIsEditMode] = useState(false);
 
   const toast = useToast();
 
@@ -50,8 +53,22 @@ const PatientsProvider = ({ children }: WithChildren) => {
   const createPatient = async (form: PatientPayload) => {
     setLoading(true);
     try {
-      const data = await patientServices.create(form);
-      if (data) fecthPatientsData();
+      const data = isEditMode
+        ? await patientServices.update(form)
+        : await patientServices.create(form);
+      if (data) {
+        fecthPatientsData();
+        setPatientModalIsOpen(false);
+        toast({
+          title: 'Sucesso!',
+          description: isEditMode
+            ? 'O paciente foi atualizado com sucesso'
+            : 'O paciente foi cadastrado com sucesso',
+          status: 'success',
+          duration: 9000,
+          isClosable: true,
+        });
+      }
     } catch (err) {
       toast({
         title: 'Erro ao criar paciente',
@@ -73,8 +90,9 @@ const PatientsProvider = ({ children }: WithChildren) => {
       const data = await patientServices.getOne(id);
       if (data)
         setPatientForm({
+          id: data.id,
           name: data.name,
-          birth_date: data.birth_date,
+          birth_date: stringParsers.toDefaultDate(data.birth_date),
           cpf: data.cpf,
           phone: data.phone,
           address: data.address,
@@ -96,6 +114,7 @@ const PatientsProvider = ({ children }: WithChildren) => {
 
   const tooglePatientModal = (id?: string) => {
     if (id) {
+      setIsEditMode(true);
       setPatientModalIsOpen(true);
       getPatientInfo(id);
       return;

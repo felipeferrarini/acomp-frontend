@@ -2,14 +2,19 @@ import { Stack, Center, Spinner } from '@chakra-ui/react';
 import { FaUserFriends } from 'react-icons/fa';
 import { useState } from 'react';
 import { BaseTemplate } from '../../components/Templates/BaseLayout';
-import { PatientCard } from '../../components/Patients';
-import { EmptyPatients } from '../../components/Patients/EmptyPatients';
-import { PatientForm } from '../../components/Patients/PatientForm';
+import {
+  EmptyPatients,
+  PatientCard,
+  PatientForm,
+} from '../../components/Patients';
 import { Pagination } from '../../components/Pagination';
 import { withSSRAuth } from '../../hocs/withSSRAuth';
-import { usePatientsContext } from '../../contexts/PatientsContext';
+import {
+  PatientsProvider,
+  usePatientsContext,
+} from '../../contexts/PatientsContext';
 
-export default function Patients() {
+const PatientsComponent = () => {
   const [page, setPage] = useState(1);
   const { patients, loading, tooglePatientModal } = usePatientsContext();
 
@@ -49,6 +54,14 @@ export default function Patients() {
 
       <PatientForm />
     </BaseTemplate>
+  );
+};
+
+export default function Patients() {
+  return (
+    <PatientsProvider>
+      <PatientsComponent />
+    </PatientsProvider>
   );
 }
 

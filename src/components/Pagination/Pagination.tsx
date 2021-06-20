@@ -42,7 +42,9 @@ export function Pagination(props: IPagination) {
       <Box>
         <strong>{(currentPage - 1) * registersPerPage + 1}</strong> -{' '}
         <strong>
-          {(currentPage - 1) * registersPerPage + registersPerPage}
+          {totalRegisters > 10
+            ? (currentPage - 1) * registersPerPage + registersPerPage
+            : totalRegisters}
         </strong>{' '}
         de <strong>{totalRegisters}</strong>
       </Box>
