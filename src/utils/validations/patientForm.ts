@@ -1,9 +1,5 @@
 import * as yup from 'yup';
-
-const validatios = {
-  requiredString: yup.string().required('Campo obrigatório'),
-  requiredNumber: yup.number().required('Campo obrigatório'),
-};
+import { validatios } from './validations';
 
 export const patientFormSchema = yup.object().shape({
   name: validatios.requiredString,

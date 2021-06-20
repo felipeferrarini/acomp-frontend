@@ -1,6 +1,7 @@
 export interface ProcedurePayload {
   id?: string;
   type: string;
+  description: string;
 }
 
 export interface ProcedureProps extends ProcedurePayload {
