@@ -1,5 +1,11 @@
 import { Heading, Stack, Box, useDisclosure, Flex } from '@chakra-ui/react';
-import { FaHome, FaStethoscope, FaUserFriends, FaCogs } from 'react-icons/fa';
+import {
+  FaHome,
+  FaStethoscope,
+  FaUserFriends,
+  FaCogs,
+  FaUserMd,
+} from 'react-icons/fa';
 import Link from 'next/link';
 import { memo } from 'react';
 import { ChoosePatientToFollowUp } from './ChoosePatientToFollowUp/ChoosePatientToFollowUp';
@@ -39,6 +45,9 @@ const SidenavComponent = () => {
           </NavLink>
           <NavLink icon={FaUserFriends} href={routes.patients}>
             Pacientes
+          </NavLink>
+          <NavLink icon={FaUserMd} href={routes.doctors}>
+            Médicos
           </NavLink>
         </Stack>
         <Box marginTop="auto">

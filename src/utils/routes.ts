@@ -7,4 +7,5 @@ export const routes = {
   settings: '/settings',
   settingsProcedures: '/settings/procedures',
   settingsUsers: '/settings/users',
+  doctors: '/doctors',
 };
