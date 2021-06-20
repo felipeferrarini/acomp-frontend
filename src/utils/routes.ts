@@ -3,4 +3,5 @@ export const routes = {
   home: '/',
   patients: '/patients',
   patientsId: '/patients/',
+  profile: '/profile',
 };
