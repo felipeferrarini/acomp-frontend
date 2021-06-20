@@ -17,7 +17,7 @@ export function ProcedureItem({ procedure }: ProcedureItemProps) {
         </Text>
       </Center>
       <Center bg="blue.200" w="60%" shadow="sm">
-        <Text color="gray.700">{procedure.type}</Text>
+        <Text color="gray.700">{procedure.description}</Text>
       </Center>
       <VStack w="20%" spacing={0} shadow="sm">
         <Button

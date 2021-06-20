@@ -35,7 +35,7 @@ const PatientsComponent = () => {
             size="xl"
           />
         </Center>
-      ) : patients.length > 0 ? (
+      ) : patients?.length > 0 ? (
         <Stack h="" flexDir="column" spacing="4" mt="2">
           {patients
             .slice((page - 1) * 10, (page - 1) * 10 + 10)

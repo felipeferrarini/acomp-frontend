@@ -9,10 +9,10 @@ import {
 } from '@chakra-ui/react';
 import { FiEdit } from 'react-icons/fi';
 import { usePatientsContext } from '../../contexts/PatientsContext';
-import { PatientProps } from '../../services/patient/types';
+import { PatientPayload } from '../../services/patient/types';
 
 interface PatientComponentProps {
-  patient: PatientProps | null;
+  patient: PatientPayload | null;
 }
 
 const Patient = ({ patient }: PatientComponentProps) => {
@@ -20,7 +20,7 @@ const Patient = ({ patient }: PatientComponentProps) => {
 
   if (patient) {
     return (
-      <Flex justifyContent="space-between" mb={5}>
+      <Flex justifyContent="space-between" mb={5} w="100%">
         <Flex flexBasis="50%">
           <Avatar
             size="2xl"
@@ -28,8 +28,8 @@ const Patient = ({ patient }: PatientComponentProps) => {
             name={patient.name}
             src="https://avatars.githubusercontent.com/u/22601978?v=4"
           />
-          <Box marginLeft={2}>
-            <Heading marginBottom={5} marginTop={2}>
+          <Box marginLeft={5}>
+            <Heading size="lg" marginBottom={5} marginTop={2}>
               {patient.name}
             </Heading>
             <Text>54 anos</Text>

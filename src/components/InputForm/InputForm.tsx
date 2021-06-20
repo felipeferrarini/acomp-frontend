@@ -14,6 +14,8 @@ interface InputFormProps {
   label: string;
   type?: 'number' | 'string' | 'date';
   isTextArea?: boolean;
+  readyOnly?: boolean;
+  defaultValue?: string;
 }
 
 export function InputForm({
@@ -21,6 +23,8 @@ export function InputForm({
   label,
   type = 'string',
   isTextArea = false,
+  readyOnly = false,
+  defaultValue,
 }: InputFormProps) {
   return (
     <Field name={name}>
@@ -38,6 +42,8 @@ export function InputForm({
                   type={type}
                   borderRadius={5}
                   w={type === 'date' ? '50%' : '100%'}
+                  readOnly={readyOnly}
+                  value={defaultValue || field.value}
                 />
               ) : (
                 <Input
@@ -48,6 +54,9 @@ export function InputForm({
                   type={type}
                   borderRadius={5}
                   w={type === 'date' ? '50%' : '100%'}
+                  readOnly={readyOnly}
+                  defaultValue={defaultValue}
+                  value={defaultValue || field.value}
                 />
               )}
               <FormErrorMessage fontSize="small" margin={0}>

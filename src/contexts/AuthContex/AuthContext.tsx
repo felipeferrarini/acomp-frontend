@@ -54,6 +54,7 @@ const AuthProvider = ({ children }: WithChildren) => {
       });
 
       const { token, user: userApi } = response.data;
+      console.log(userApi);
 
       setUser(userApi);
       const { exp } = jwtDecode<{ exp: number }>(token);

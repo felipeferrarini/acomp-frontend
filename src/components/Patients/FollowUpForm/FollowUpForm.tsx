@@ -10,30 +10,29 @@ import {
   VStack,
 } from '@chakra-ui/react';
 import { Formik, Form } from 'formik';
-import { FaUser } from 'react-icons/fa';
+import { FaStethoscope } from 'react-icons/fa';
 import { usePatientsContext } from '../../../contexts/PatientsContext';
-import { patientFormSchema } from '../../../utils/validations/patientForm';
 import { Loading } from '../../Loading';
-import { InputAvatar } from './components/InputAvatar';
 import { InputForm } from '../../InputForm';
 import { ModalActions } from './components/ModalActions';
+import { FollowUpSchema } from '../../../utils/validations/followUpSchema';
 
-const PatientForm = () => {
+const FollowUpForm = () => {
   const {
-    patientModalIsOpen,
-    patientForm,
+    followUpModalIsOpen,
+    defaultFollowUpForm,
     loadingPatient,
-    isEditMode,
-    tooglePatientModal,
-    createPatient,
+    patientForm,
+    toogleFollowUpModal,
+    createFollowup,
   } = usePatientsContext();
 
-  const onClose = () => {
-    tooglePatientModal();
-  };
-
   return (
-    <Modal size="4xl" isOpen={patientModalIsOpen} onClose={onClose}>
+    <Modal
+      size="4xl"
+      isOpen={followUpModalIsOpen}
+      onClose={toogleFollowUpModal}
+    >
       <ModalOverlay />
 
       <ModalContent p="8">
@@ -44,8 +43,8 @@ const PatientForm = () => {
           justifyContent="center"
           color="blue.900"
         >
-          <Icon as={FaUser} mr="2" />
-          {isEditMode ? 'Editar paciente' : 'Novo paciente'}
+          <Icon as={FaStethoscope} mr="2" />
+          Novo atendimento
         </ModalHeader>
         <ModalCloseButton colorScheme="blue" color="blue.900" />
 
@@ -53,30 +52,37 @@ const PatientForm = () => {
           <Loading />
         ) : (
           <Formik
-            initialValues={patientForm}
-            onSubmit={createPatient}
-            validationSchema={patientFormSchema}
+            initialValues={defaultFollowUpForm}
+            onSubmit={values => {
+              console.log(values);
+            }}
+            validationSchema={FollowUpSchema}
           >
             {({ isSubmitting }) => (
               <Form>
                 <ModalBody pb={6}>
                   <HStack>
-                    <InputAvatar />
                     <VStack w="80%">
-                      <InputForm name="name" label="Nome" />
                       <InputForm
-                        name="birth_date"
-                        label="Nascimento"
-                        type="date"
+                        name="patient_id"
+                        label="Paciente"
+                        readyOnly
+                        defaultValue={patientForm.name}
                       />
-                      <InputForm name="cpf" label="CPF" type="number" />
-                      <InputForm name="address" label="Endereço" />
-                      <InputForm name="phone" label="Telefone" type="number" />
+                      <InputForm name="date" label="Data" type="date" />
+                      <InputForm
+                        name="description"
+                        label="Descrição"
+                        isTextArea
+                      />
                     </VStack>
                   </HStack>
                 </ModalBody>
 
-                <ModalActions isSubmitting={isSubmitting} onClose={onClose} />
+                <ModalActions
+                  isSubmitting={isSubmitting}
+                  onClose={toogleFollowUpModal}
+                />
               </Form>
             )}
           </Formik>
@@ -86,4 +92,4 @@ const PatientForm = () => {
   );
 };
 
-export { PatientForm };
+export { FollowUpForm };

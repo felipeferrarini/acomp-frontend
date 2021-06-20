@@ -14,7 +14,7 @@ const SettingsPage = () => {
           href={routes.settingsProcedures}
         />
         <SimpleCard
-          title="Procedimentos"
+          title="Usuários"
           icon={FaUsers}
           href={routes.settingsUsers}
         />
