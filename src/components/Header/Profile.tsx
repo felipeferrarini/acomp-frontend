@@ -17,7 +17,6 @@ import { routes } from '../../utils/routes';
 
 export function Profile() {
   const { user, signOut } = useAuthContext();
-  console.log(user);
 
   return (
     <Flex align="center" position="relative" mr="20px">

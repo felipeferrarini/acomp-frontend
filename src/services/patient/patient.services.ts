@@ -1,5 +1,10 @@
 import { api } from '../apiClient';
-import { PatientPayload, PatientProps } from './types';
+import {
+  FollowUpPayload,
+  FollowUpProps,
+  PatientPayload,
+  PatientProps,
+} from './types';
 
 export const patientServices = {
   getAll: async (search = ''): Promise<PatientProps[]> => {
@@ -41,6 +46,24 @@ export const patientServices = {
       return data;
     } catch (error) {
       throw new Error('error on create a new patient');
+    }
+  },
+  getAllMedicalCare: async (patientId: string): Promise<FollowUpProps[]> => {
+    try {
+      const { data } = await api.put<FollowUpProps[]>(`/followup/${patientId}`);
+
+      return data;
+    } catch (error) {
+      throw new Error('error on get followup list');
+    }
+  },
+  newMedicalCare: async (form: FollowUpPayload): Promise<FollowUpProps> => {
+    try {
+      const { data } = await api.put<FollowUpProps>(`/followup`, form);
+
+      return data;
+    } catch (error) {
+      throw new Error('error on create a new followup');
     }
   },
 };

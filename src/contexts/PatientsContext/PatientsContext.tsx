@@ -1,7 +1,12 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 import { useToast } from '@chakra-ui/react';
 import { WithChildren } from '../../@types/withChildren';
-import { PatientPayload, PatientProps } from '../../services/patient/types';
+import {
+  FollowUpPayload,
+  FollowUpProps,
+  PatientPayload,
+  PatientProps,
+} from '../../services/patient/types';
 import { patientServices } from '../../services/patient/patient.services';
 import { PatientsContextData } from './types';
 import { stringParsers } from '../../utils/parse/string';
@@ -18,6 +23,14 @@ const PatientsProvider = ({ children }: WithChildren) => {
     birth_date: '',
   };
 
+  const defaultFollowUpForm: FollowUpPayload = {
+    date: '',
+    description: '',
+    doctor_id: '',
+    patient_id: '',
+    procedure_id: '',
+  };
+
   const [patients, setPatients] = useState<PatientProps[]>([]);
   const [loading, setLoading] = useState(false);
   const [loadingPatient, setLoadingPatient] = useState(false);
@@ -25,6 +38,9 @@ const PatientsProvider = ({ children }: WithChildren) => {
   const [patientForm, setPatientForm] =
     useState<PatientPayload>(defaultPatientForm);
   const [isEditMode, setIsEditMode] = useState(false);
+  const [followups, setFollowups] = useState<FollowUpProps[]>([]);
+  const [loadingFollowUp, setLoadingFollowUp] = useState(false);
+  const [followUpModalIsOpen, setFollowUpModalIsOpen] = useState(false);
 
   const toast = useToast();
 
@@ -127,6 +143,67 @@ const PatientsProvider = ({ children }: WithChildren) => {
     fecthPatientsData();
   }, []);
 
+  //* ***************Follow up**************/
+
+  const fecthFollowUpData = async (patientId: string) => {
+    setLoadingFollowUp(true);
+    try {
+      const data = await patientServices.getAllMedicalCare(patientId);
+
+      if (data) {
+        setFollowups(data);
+      }
+    } catch (err) {
+      toast({
+        title: 'Erro na requisição',
+        description: 'Não foi possivel listar os atendimentos do paciente!',
+        status: 'error',
+        duration: 9000,
+        isClosable: true,
+      });
+      console.log(err);
+    } finally {
+      setLoadingFollowUp(false);
+    }
+  };
+
+  const createFollowup = async (form: FollowUpPayload) => {
+    setLoading(true);
+    try {
+      const data = await patientServices.newMedicalCare(form);
+      if (data) {
+        fecthFollowUpData(form.patient_id);
+        setFollowUpModalIsOpen(false);
+        toast({
+          title: 'Sucesso!',
+          description: 'O atendimento foi cadastrado com sucesso',
+          status: 'success',
+          duration: 9000,
+          isClosable: true,
+        });
+      }
+    } catch (err) {
+      toast({
+        title: 'Erro na criação',
+        description: 'Não foi possivel criar o atendimento!',
+        status: 'error',
+        duration: 9000,
+        isClosable: true,
+      });
+      console.log(err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const toogleFollowUpModal = () => {
+    setFollowUpModalIsOpen(!followUpModalIsOpen);
+  };
+
+  useEffect(() => {
+    // if (patientForm.id !== '') fecthFollowUpData(patientForm.id);
+  }, [patientForm.id]);
+
   return (
     <PatientsContext.Provider
       value={{
@@ -135,9 +212,17 @@ const PatientsProvider = ({ children }: WithChildren) => {
         loadingPatient,
         patientModalIsOpen,
         patientForm,
+        followups,
+        loadingFollowUp,
+        followUpModalIsOpen,
+        isEditMode,
+        defaultFollowUpForm,
         fecthPatientsData,
         createPatient,
         tooglePatientModal,
+        getPatientInfo,
+        createFollowup,
+        toogleFollowUpModal,
       }}
     >
       {children}
