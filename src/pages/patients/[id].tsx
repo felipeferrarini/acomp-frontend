@@ -19,8 +19,13 @@ interface FollowUpProps {
 }
 
 const FollowUpComponent = ({ id }: FollowUpProps) => {
-  const { getPatientInfo, toogleFollowUpModal, loadingPatient, patientForm } =
-    usePatientsContext();
+  const {
+    getPatientInfo,
+    toogleFollowUpModal,
+    followups,
+    loadingPatient,
+    patientForm,
+  } = usePatientsContext();
 
   useEffect(() => {
     getPatientInfo(id);
@@ -56,6 +61,10 @@ const FollowUpComponent = ({ id }: FollowUpProps) => {
               Novo Atendimento
             </Text>
           </Button>
+
+          {followups.map(f => (
+            <FollowUpList />
+          ))}
 
           <FollowUpList />
         </Flex>

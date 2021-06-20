@@ -11,6 +11,7 @@ import { memo } from 'react';
 import { ChoosePatientToFollowUp } from './ChoosePatientToFollowUp/ChoosePatientToFollowUp';
 import { NavLink } from './NavLink';
 import { routes } from '../../utils/routes';
+import { PatientsProvider } from '../../contexts/PatientsContext';
 
 const SidenavComponent = () => {
   const disclosure = useDisclosure();
@@ -56,7 +57,9 @@ const SidenavComponent = () => {
           </NavLink>
         </Box>
       </Flex>
-      <ChoosePatientToFollowUp useDisclosure={disclosure} />
+      <PatientsProvider>
+        <ChoosePatientToFollowUp useDisclosure={disclosure} />
+      </PatientsProvider>
     </>
   );
 };

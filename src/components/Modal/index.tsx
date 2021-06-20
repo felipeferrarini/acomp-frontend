@@ -21,6 +21,7 @@ interface props {
   title: string;
   button: string;
   children: ReactElement<any, any>;
+  onClick: () => void;
 }
 
 export function ModalComponent({
@@ -29,6 +30,7 @@ export function ModalComponent({
   title,
   button,
   children,
+  onClick,
 }: // children,
 props) {
   const { isOpen, onClose } = useDisclosure;
@@ -51,7 +53,7 @@ props) {
           <ModalBody>{children}</ModalBody>
           <Center>
             <ModalFooter>
-              <Button colorScheme="blue" onClick={onClose}>
+              <Button colorScheme="blue" onClick={onClick}>
                 {button}
               </Button>
             </ModalFooter>
