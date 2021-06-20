@@ -10,9 +10,10 @@ export interface ProceduresContextData {
   form: DoctorPayload;
   modalIsOpen: boolean;
   loadingDoctor: boolean;
+  isEditMode: boolean;
   fetchDoctors: (search?: string) => Promise<void>;
-  toogleProcedureModal: (id?: string) => void;
-  createProcedure: (payload: DoctorPayload) => Promise<void>;
+  toogleModal: (id?: string) => void;
+  createDoctor: (payload: DoctorPayload) => Promise<void>;
 }
 
 const DoctorsContext = createContext({} as ProceduresContextData);
@@ -69,9 +70,9 @@ const DoctorsProvider = ({ children }: WithChildren) => {
         });
     } catch (err) {
       toast({
-        title: 'Erro ao criar paciente',
+        title: 'Erro ao criar médico',
         description:
-          'Não foi possivel criar o paciente, verifique se ele já não está cadastrado!',
+          'Não foi possivel criar o médico, verifique se ele já não está cadastrado!',
         status: 'error',
         duration: 9000,
         isClosable: true,
@@ -82,7 +83,7 @@ const DoctorsProvider = ({ children }: WithChildren) => {
     }
   };
 
-  const createProcedure = async (payload: DoctorPayload) => {
+  const createDoctor = async (payload: DoctorPayload) => {
     setLoading(true);
     try {
       const data = isEditMode
@@ -94,8 +95,8 @@ const DoctorsProvider = ({ children }: WithChildren) => {
         toast({
           title: 'Sucesso!',
           description: isEditMode
-            ? 'O paciente foi atualizado com sucesso'
-            : 'O paciente foi cadastrado com sucesso',
+            ? 'O médico foi atualizado com sucesso'
+            : 'O médico foi cadastrado com sucesso',
           status: 'success',
           duration: 9000,
           isClosable: true,
@@ -103,9 +104,9 @@ const DoctorsProvider = ({ children }: WithChildren) => {
       }
     } catch (err) {
       toast({
-        title: 'Erro ao criar paciente',
+        title: 'Erro ao criar médico',
         description:
-          'Não foi possivel criar o paciente, verifique se ele já não está cadastrado!',
+          'Não foi possivel criar o médico, verifique se ele já não está cadastrado!',
         status: 'error',
         duration: 9000,
         isClosable: true,
@@ -116,7 +117,7 @@ const DoctorsProvider = ({ children }: WithChildren) => {
     }
   };
 
-  const toogleProcedureModal = (id?: string) => {
+  const toogleModal = (id?: string) => {
     if (id) {
       setModalIsOpen(true);
       setIsEditMode(true);
@@ -135,13 +136,14 @@ const DoctorsProvider = ({ children }: WithChildren) => {
     <DoctorsContext.Provider
       value={{
         fetchDoctors,
-        toogleProcedureModal,
-        createProcedure,
+        toogleModal,
+        createDoctor,
         doctors,
         loading,
         form,
         modalIsOpen,
         loadingDoctor,
+        isEditMode,
       }}
     >
       {children}

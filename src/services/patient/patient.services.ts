@@ -50,7 +50,9 @@ export const patientServices = {
   },
   getAllMedicalCare: async (patientId: string): Promise<FollowUpProps[]> => {
     try {
-      const { data } = await api.put<FollowUpProps[]>(`/followup/${patientId}`);
+      const { data } = await api.put<FollowUpProps[]>(
+        `/medical-care?pacient_id=${patientId}`
+      );
 
       return data;
     } catch (error) {
@@ -59,7 +61,7 @@ export const patientServices = {
   },
   newMedicalCare: async (form: FollowUpPayload): Promise<FollowUpProps> => {
     try {
-      const { data } = await api.put<FollowUpProps>(`/followup`, form);
+      const { data } = await api.put<FollowUpProps>(`/medical-care`, form);
 
       return data;
     } catch (error) {
