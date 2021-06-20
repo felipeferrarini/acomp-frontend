@@ -1,13 +1,11 @@
 export interface DoctorPayload {
   id?: string;
   name: string;
-  cpf: string;
+  crm: string;
   phone: string;
-  address: string;
-  birth_date: string;
+  user_id: string;
 }
-
-export interface PatientProps extends PatientPayload {
+export interface DoctorProps extends DoctorPayload {
   id: string;
   created_at: string;
   updated_at: string;

@@ -10,16 +10,16 @@ export function ProcedureItem({ procedure }: ProcedureItemProps) {
   const { toogleProcedureModal } = useProcedureContext();
 
   return (
-    <Flex h="28" borderRadius={10}>
-      <Center bg="blue.700" w="20%" shadow="sm">
+    <Flex h="28" w="100%" shadow="sm">
+      <Center bg="blue.700" w="20%" borderRadius="10px 0px 0px 10px">
         <Text color="white" fontWeight="medium">
           {procedure.type}
         </Text>
       </Center>
-      <Center bg="blue.200" w="60%" shadow="sm">
+      <Center bg="blue.200" w="60%">
         <Text color="gray.700">{procedure.description}</Text>
       </Center>
-      <VStack w="20%" spacing={0} shadow="sm">
+      <VStack w="20%" spacing={0}>
         <Button
           w="100%"
           h="100%"
