@@ -15,6 +15,8 @@ export interface PatientProps extends PatientPayload {
 
 export interface FollowUpPayload {
   date: string;
+  time: string;
+  type: string;
   patient_id: string;
   doctor_id: string;
   procedure_id: string;

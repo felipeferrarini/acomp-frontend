@@ -22,12 +22,7 @@ const Patient = ({ patient }: PatientComponentProps) => {
     return (
       <Flex justifyContent="space-between" mb={5} w="100%">
         <Flex flexBasis="50%">
-          <Avatar
-            size="2xl"
-            borderRadius="0"
-            name={patient.name}
-            src="https://avatars.githubusercontent.com/u/22601978?v=4"
-          />
+          <Avatar size="2xl" borderRadius="0" name={patient.name} />
           <Box marginLeft={5}>
             <Heading size="lg" marginBottom={5} marginTop={2}>
               {patient.name}

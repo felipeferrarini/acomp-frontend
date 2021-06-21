@@ -53,6 +53,7 @@ export const patientServices = {
       const { data } = await api.put<FollowUpProps[]>(
         `/medical-care?pacient_id=${patientId}`
       );
+      console.log('data', data);
 
       return data;
     } catch (error) {

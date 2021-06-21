@@ -44,7 +44,7 @@ const ProceduresProvider = ({ children }: WithChildren) => {
 
       if (data) {
         setProcedures(data);
-      }
+      } else setProcedures([]);
     } catch (error) {
       toast({
         title: 'Erro na requisição',
@@ -96,8 +96,8 @@ const ProceduresProvider = ({ children }: WithChildren) => {
         toast({
           title: 'Sucesso!',
           description: isEditMode
-            ? 'O paciente foi atualizado com sucesso'
-            : 'O paciente foi cadastrado com sucesso',
+            ? 'O Procedimento foi atualizado com sucesso'
+            : 'O Procedimento foi cadastrado com sucesso',
           status: 'success',
           duration: 9000,
           isClosable: true,

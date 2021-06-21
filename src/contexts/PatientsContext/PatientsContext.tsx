@@ -148,8 +148,8 @@ const PatientsProvider = ({ children }: WithChildren) => {
   const fecthFollowUpData = async (patientId: string) => {
     setLoadingFollowUp(true);
     try {
-      const data = await patientServices.getAllMedicalCare(patientId);
-
+      // const data = await patientServices.getAllMedicalCare(patientId);
+      const data: FollowUpProps[] = [];
       if (data) {
         setFollowups(data);
       }

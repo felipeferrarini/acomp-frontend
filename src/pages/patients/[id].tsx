@@ -62,9 +62,9 @@ const FollowUpComponent = ({ id }: FollowUpProps) => {
             </Text>
           </Button>
 
-          {followups.map(f => (
+          {/* {followups.map(f => (
             <FollowUpList />
-          ))}
+          ))} */}
 
           <FollowUpList />
         </Flex>
