@@ -209,7 +209,7 @@ const PatientsProvider = ({ children }: WithChildren) => {
   };
 
   useEffect(() => {
-    if (patientForm.id !== '') fecthFollowUpData(patientForm.id);
+//     if (patientForm.id !== '') fecthFollowUpData(patientForm.id);
   }, [patientForm.id]);
 
   return (
